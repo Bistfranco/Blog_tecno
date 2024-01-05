@@ -1,0 +1,66 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block navegador %}
+<!-- 
+<a href={% url 'inicio' %} class="nav-item nav-link ">Inicio</a>
+-->
+<a href={% url 'inicio' %} class="nav-item nav-link ">Blog</a>
+<a href={% url 'about' %} class="nav-item nav-link">Nosotros</a>
+<a href={% url 'contacto' %} class="nav-item nav-link">Contacto</a>
+{% if request.user.is_authenticated %}
+<a href={% url 'info' %} class="nav-item nav-link active">Info</a>
+{% endif %}
+{% endblock navegador %}
+
+
+{% block contenedor %}
+
+    <!-- About Start -->
+    <div class="container-fluid py-1">
+        <div class="container">
+            <div class="text-center pb-2">
+                
+                    <h1 class="mb-4"> Info del blog </h1>
+                
+            </div>
+            <div class="row align-items-center">
+                
+                <h3 class="text-primary text-uppercase font-weight-bold"> Este blog fue desarrollado en Python, Django y base de datos MySQL! </h3>
+
+            
+            </div>
+            <div class="pb2">
+                <h4 class="mb-3"> Utilizamos: </h4>
+                
+                <ul>
+                    <li>Estructuras de control de flujos</li>
+                    <li>Estructuras de datos</li>
+                    <li>Funciones</li>
+                    <li>Modulos</li>
+                    <li>Modelado de Base de Datos</li>
+                    <li>MER</li>
+                    <li>Programacion Orientada a Objetos</li>
+                </ul>
+
+                <h4 class="mb-3"> Trabajamos con Django: </h4>
+                
+                <ul>
+                    <li>Templates</li>
+                    <li>Models</li>
+                    <li>Migrations</li>
+                    <li>Views</li>
+                    <li>Routing</li>
+                    <li>Autentificacion y Autorizacion</li>
+                    <li>Forms</li>
+
+                </ul>
+
+                <h4 class="mb-3">como objetivo final, el proyecto fue hecho para el Informatorio del Chaco 2023</h4>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Team End -->
+
+{% endblock contenedor %}

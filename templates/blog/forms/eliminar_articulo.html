@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block navegador %}
+<!-- 
+<a href={% url 'inicio' %} class="nav-item nav-link ">Inicio</a>
+-->
+<a href={% url 'inicio' %} class="nav-item nav-link active">Blog</a>
+<a href={% url 'about' %} class="nav-item nav-link">Nosotros</a>
+<a href={% url 'contacto' %} class="nav-item nav-link">Contacto</a>
+{% endblock navegador %}
+
+
+{% block contenedor %}
+    <!-- Blog Start -->
+    <div class="container py-5">
+        <div class="row">
+            <!-- ELIMINAR Start -->
+            <div class="col-lg-8">
+                <div class="bg-secondary" style="padding: 30px; margin-bottom: 30px;">
+                    <h1 class="mb-4">Eliminar Articulo</h1>
+                    <form method='post'>
+                        {% csrf_token %}
+
+                        <h4 class="font-weight-bold mb-3">¿Confirma eliminar el articulo: {{ articulo }} ?</h4>
+                        <a class="btn btn-dark" href={% url 'articulo' articulo_slug=articulo.slug art=articulo.id %}> Cancelar</a>
+                        <input class="btn btn-dark" type="submit" value="Confirmar">
+                    </form>
+                </div>
+            </div>
+            <!-- ELIMINAR End -->
+            
+            <!-- Sidebar Start -->
+            {% include 'blog/sidebarder.html' %}
+            <!-- Sidebar End -->
+
+        </div>
+    </div>
+    <!-- Blog End -->
+{% endblock contenedor %}

@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block navegador %}
+<!-- 
+<a href={% url 'inicio' %} class="nav-item nav-link ">Inicio</a>
+-->
+<a href={% url 'inicio' %} class="nav-item nav-link">Blog</a>
+<a href={% url 'about' %} class="nav-item nav-link">Nosotros</a>
+<a href={% url 'contacto' %} class="nav-item nav-link">Contacto</a>
+{% endblock navegador %}
+
+{% block contenedor %}
+<div class="container-fluid py-5">
+    <div class="container">
+        <section class="mt-5 mb-5 text-center">
+          <div class="container">
+            <h4 class='mb-5'>!PROBANDO!</h4>
+            {% if object %}
+            <h2> {{object.titulo}}</h2>
+            <h2> {{object.contenido}}</h2>
+            {%endif%}
+          </div>
+        </section>
+    </div>
+</div>  
+{% endblock contenedor %}

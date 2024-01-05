@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block navegador %}
+<!-- 
+<a href={% url 'inicio' %} class="nav-item nav-link ">Inicio</a>
+-->
+<a href={% url 'inicio' %} class="nav-item nav-link">Blog</a>
+<a href={% url 'about' %} class="nav-item nav-link">Nosotros</a>
+<a href={% url 'contacto' %} class="nav-item nav-link">Contacto</a>
+{% endblock navegador %}
+
+{% block contenedor %}
+<div class="container-fluid py-5">
+    <div class="container">
+        <section class="mt-5 mb-5 text-center">
+          <div class="container">
+            <h4 class='mb-5'>!PAGINA NO ENCONTRADA!</h4>
+            <img src="{% static 'ghost.png' %}" style="width: 300px; height: 300px;">
+          </div>
+          <div class="container">
+            <a class="btn btn-dark " href="{% url 'inicio'%}">Haga clic aquí para iniciar sesión de nuevo.</a>
+          </div>
+        </section>
+    </div>
+</div>  
+{% endblock contenedor %}

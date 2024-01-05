@@ -1,0 +1,68 @@
+{% load static %}
+
+            <!-- Sidebar Start -->
+            <div class="col-lg-4 mt-5 mt-lg-0">
+                <!-- Search Form Start -->
+                <div class="mb-5">
+                    <form action='/articulo/' method="GET">
+                        <div class="bg-secondary" style="padding: 30px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control border-0 p-4" placeholder="Buscar.." name= 'buscar'>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary px-3"><i
+                                        class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Search Form End -->
+
+                <!-- Category Start -->
+                <div class="mb-5">
+                    <h3 class="mb-4">Categorias</h3>
+                    <div class="bg-secondary" style="padding: 30px;">
+                        <ul class="list-inline m-0">
+                            {% for categoria in categorias %}
+                                <li class="mb-1 py-2 px-3 bg-light d-flex justify-content-between align-items-center">
+                                    <a class="text-dark" href="{% url 'categoria' categoria_slug=categoria.slug%}"><i class="fa fa-angle-right text-primary mr-2"></i>{{ categoria }}</a>
+                                    <!--<span class="badge badge-secondary badge-pill">150</span>-->
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- Category End -->
+
+                <!-- Plain Text Start -->
+                <div class="mb-5">
+                    <h3 class="mb-4">Acerca de</h3>
+                    <div class="bg-secondary text-center" style="padding: 30px;">
+                        <p>{{ acerca }}</p>
+                        <!-- <a href="" class="btn btn-primary py-2 px-4">Read More</a> -->
+                    </div>
+                </div>
+                <!-- Plain Text End -->
+
+                <!-- ARCHIVOS Start -->
+                <div class="mb-5">
+                    <h3 class="mb-4">Archivos</h3>
+                    <div class="bg-secondary" style="padding: 30px;">
+                        <ul class="list-inline m-0">
+                            {% for archivo in archivos %}
+
+                            <li class="mb-1 py-2 px-3 bg-light d-flex justify-content-between align-items-center">
+                                <a class="text-dark" href={% url 'archivo' year=archivo.fecha.year month=archivo.fecha.month %}><i class="fa fa-angle-right text-primary mr-2"></i>{{ archivo.fecha|date:'F Y'|capfirst }}</a>
+                                <!-- 
+                                <a class="text-dark" href={% url 'archivo' year=archivo.fecha.year month=archivo.fecha.month %}><i class="fa fa-angle-right text-primary mr-2"></i>{{archivo.mes_letra}} de {{archivo.fecha.year}}</a>
+                                -->
+                            </li>
+
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- ARCHIVOS End -->
+
+            </div>
+            <!-- Sidebar End -->

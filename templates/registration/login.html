@@ -1,0 +1,65 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block navegador %}
+<!-- 
+  <a href={% url 'inicio' %} class="nav-item nav-link ">Inicio</a>
+  -->
+<a href={% url 'inicio' %} class="nav-item nav-link">Blog</a>
+<a href={% url 'about' %} class="nav-item nav-link">Nosotros</a>
+<a href={% url 'contacto' %} class="nav-item nav-link">Contacto</a>
+{%if request.user.is_authenticated %}
+<a href={% url 'info' %} class="nav-item nav-link">Info</a>
+{% endif %}
+{% endblock navegador %}
+{% block contenedor %}
+<div class="container-fluid py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-5 pb-4 pb-lg-0">
+        <img class="img-fluid w-100" src={% static 'blog_plantilla/img/about.jpg' %} alt="">
+        <div class="bg-primary text-dark text-center p-4">
+          <h3 class="m-0">LOGIN</h3>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <h1>Login de Usuario</h1>
+        {% if form.errors %}
+        <p>Su nombre de usuario y contraseña no coinciden. Inténtelo de nuevo.</p>
+        {% endif %}
+        {% if next %}
+        {% if user.is_authenticated %}
+        <p>Su cuenta no tiene acceso a esta página. Para continuar, inicie sesión con una cuenta que tenga acceso.</p>
+        {% else %}
+        <p>Por favor inicie sesión para ver ésta página.</p>
+        {% endif %}
+        {% endif %}
+        <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          <table class="mt-5 mb-4">
+            <tr>
+              <td>
+                {{ form.username.label_tag }}
+              </td>
+              <td>
+                {{ form.username }}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                {{ form.password.label_tag }}
+              </td>
+              <td>
+                {{ form.password }}
+              </td>
+            </tr>
+          </table>
+          <input class="btn btn-dark mb-2" type="submit" value="login">
+          <input type="hidden" name="next" value="{{ next }}">
+        </form>
+        {# Assumes you setup the password_reset view in your URLconf #}
+        <p><a href="{% url 'password_reset' %}">¿Olvidó la contraseña?</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock contenedor %}

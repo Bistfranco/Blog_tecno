@@ -1,0 +1,106 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block navegador %}
+<!-- 
+<a href={% url 'inicio' %} class="nav-item nav-link ">Inicio</a>
+-->
+<a href={% url 'inicio' %} class="nav-item nav-link active">Blog</a>
+<a href={% url 'about' %} class="nav-item nav-link">Nosotros</a>
+<a href={% url 'contacto' %} class="nav-item nav-link">Contacto</a>
+{%if request.user.is_authenticated %}
+<a href={% url 'info' %} class="nav-item nav-link">Info</a>
+{% endif %}
+{% endblock navegador %}
+
+
+{% block contenedor %}
+
+    <!-- Blog Start -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Blog Detail Start -->
+                <div class="pb-3">
+                    <div class="position-relative">
+                        <img class="img-fluid w-100" src= {{ articulo.imagen.url }} alt="">
+                        <div class="position-absolute bg-primary d-flex flex-column align-items-center justify-content-center rounded-circle"
+                            style="width: 60px; height: 60px; bottom: -30px; right: 30px;">
+                            <h4 class="font-weight-bold mb-n1">{{ articulo.creacion|date:'d' }}</h4>
+                            <small class="text-white text-uppercase">{{ articulo.creacion|date:'m y' }}</small>
+                        </div>
+                    </div>
+                    <div class="bg-secondary mb-3" style="padding: 30px;">
+                        <div class="d-flex mb-3">
+                            <div class="d-flex align-items-center">
+                                <img class="rounded-circle" style="width: 40px; height: 40px;" src={% static 'blog_plantilla/img/user.jpg' %} alt="">
+                                <a class="text-muted ml-2" href={% url 'autor' autor=articulo.autor%}>{{ articulo.autor }}</a>
+                            </div>
+                            <div class="d-flex align-items-center ml-4">
+                                <i class="far fa-bookmark text-primary"></i>
+                                <a class="text-muted ml-2" href={% url 'categoria' categoria_slug=articulo.categoria.slug %}>{{ articulo.categoria }}</a>
+                            </div>
+                        </div>
+                        <h4 class="font-weight-bold mb-3">{{ articulo.titulo }}</h4>
+                        <p>{{ articulo.bajada }}</p>
+                        <p>{{ articulo.contenido|safe }}</p>
+
+                    </div>
+                </div>
+                <!-- Blog Detail End -->
+
+                <!--  Start -->
+                <div class="bg-secondary" style="padding: 30px; margin-bottom: 30px;">
+                    <a class="btn btn-dark" href={% url 'inicio' %}>Volver</a>
+                    {% if request.user == articulo.autor  or request.user.is_superuser%}
+                        <a class="btn btn-dark" href={% url 'actualizar_articulo' articulo_slug=articulo.slug %}>Editar</a>
+                        <a class="btn btn-dark" href={% url 'eliminar_articulo' articulo_slug=articulo.slug  %}>Eliminar</a>
+                    {% endif %}
+                </div>
+                <!--  End -->
+
+
+                <!-- Comment List End -->
+                <div class="bg-secondary" style="padding: 30px; margin-bottom: 30px;">
+                    <h3 class="mb-4">Comentarios:</h3>
+
+                    {% for comentario in comentarios%}
+                    <div class="media mb-4">
+                        <img src={% static 'blog_plantilla/img/user.jpg' %} alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                        <div class="media-body">
+                            <h6><a href="">{{comentario.usuario}}</a> <small><i>{{comentario.fecha}}</i></small></h6>
+                            <p>{{ comentario.texto }}</p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <h3 class="mb-4">Sin Comentarios.</h3>
+                    {% endfor %}
+                </div>
+
+                <!-- Comment Form Start -->
+                <div class="bg-secondary mb-3" style="padding: 30px;">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% if user.is_authenticated %}
+                            <h3 class="mb-4">Deja tu comentario</h3>
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <input type="submit" value="Comentar">
+                            </form>
+                        {% else %}
+                        
+                            <h4>Debe <a href={% url 'login' %}>iniciar sesion</a> o <a href={% url 'signup' %}>registrarse</a> para comentar</h4>
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- Comment Form End -->
+            </div>
+
+            <!-- Sidebar Start -->
+            {% include 'blog/sidebarder.html' %}
+            <!-- Sidebar End -->
+        </div>
+    </div>
+    <!-- Blog End -->
+
+{% endblock contenedor %}

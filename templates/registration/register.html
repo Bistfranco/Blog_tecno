@@ -1,0 +1,52 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block navegador %}
+<!-- 
+    <a href={% url 'inicio' %} class="nav-item nav-link ">Inicio</a>
+    -->
+<a href={% url 'inicio' %} class="nav-item nav-link">Blog</a>
+<a href={% url 'about' %} class="nav-item nav-link">Nosotros</a>
+<a href={% url 'contacto' %} class="nav-item nav-link">Contacto</a>
+{% endblock navegador %}
+{% block contenedor %}
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 pb-4 pb-lg-0">
+                <img class="img-fluid w-100" src={% static 'blog_plantilla/img/about.jpg' %} alt="">
+                <div class="bg-primary text-dark text-center p-4">
+                    <h3 class="m-0">LOGIN</h3>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <h1>Registro de Usuario</h1>
+                {% if form.errors %}
+                <ul>
+                    {% for field in form %}
+                    {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                    {% endfor %}
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <form class="forms-group__form" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <br>
+                    <div class="forms-group__input-field">
+                        <label class="forms-group__label"></label><br>
+                        {{ field }}
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <div class="forms-group__button-div">
+                        <input class="btn btn-dark  my-5 forms-group__button" type="submit" value='Registrarse'>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenedor %}

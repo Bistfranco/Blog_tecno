@@ -1,0 +1,64 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block navegador %}
+<!-- 
+    <a href={% url 'inicio' %} class="nav-item nav-link ">Inicio</a>
+    -->
+<a href={% url 'inicio' %} class="nav-item nav-link">Blog</a>
+<a href={% url 'about' %} class="nav-item nav-link">Nosotros</a>
+<a href={% url 'contacto' %} class="nav-item nav-link active">Contacto</a>
+{%if request.user.is_authenticated %}
+<a href={% url 'info' %} class="nav-item nav-link">Info</a>
+{% endif %}
+{% endblock navegador %}
+{% block contenedor %}
+<!-- Contact Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 pb-4 pb-lg-0">
+                <div class="bg-primary text-dark text-center p-4">
+                    <h4 class="m-0"><i class="fa fa-map-marker-alt text-white mr-2"></i>Resistencia, Chaco, Argentina</h4>
+                </div>
+                <iframe style="width: 100%; height: 470px;"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56644.46838259451!2d-59.073284937128456!3d-27.460563643625512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94450c62a6f5f70b%3A0xf03ac86511c2cd6d!2sResistencia%2C%20Chaco!5e0!3m2!1ses!2sar!4v1689378816624!5m2!1ses!2sar"
+                    frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+            <div class="col-lg-7">
+                <h6 class="text-primary text-uppercase font-weight-bold">Contacto</h6>
+                <h1 class="mb-4">Contacto Para Cualquier Consulta</h1>
+                <div class="contact-form bg-secondary" style="padding: 30px;">
+                    <div id="success"></div>
+                    <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <div class="control-group">
+                            <input type="text" class="form-control border-0 p-4" id="name" placeholder="Nombre"
+                                required="required" data-validation-required-message="Debe ingresar un nombre" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <input type="email" class="form-control border-0 p-4" id="email" placeholder="Email"
+                                required="required" data-validation-required-message="Debe ingresar un Email valido" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <input type="text" class="form-control border-0 p-4" id="subject" placeholder="Asunto"
+                                required="required" data-validation-required-message="Debe ingresar un Asunto" />
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="control-group">
+                            <textarea class="form-control border-0 py-3 px-4" rows="3" id="message" placeholder="Mensaje"
+                                required="required"
+                                data-validation-required-message="Debe ingresar un Mensaje"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary py-3 px-4" type="submit" id="sendMessageButton">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->
+{% endblock contenedor %}

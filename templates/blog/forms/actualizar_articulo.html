@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block navegador %}
+<!-- 
+<a href={% url 'inicio' %} class="nav-item nav-link ">Inicio</a>
+-->
+<a href={% url 'inicio' %} class="nav-item nav-link active">Blog</a>
+<a href={% url 'about' %} class="nav-item nav-link">Nosotros</a>
+<a href={% url 'contacto' %} class="nav-item nav-link">Contacto</a>
+{% endblock navegador %}
+
+
+{% block contenedor %}
+    <!-- Blog Start -->
+    <div class="container py-5">
+        <div class="row">
+            <!-- Blog Grid Start -->
+            <div class="col-lg-8">
+                <h1 class="mb-4">Actualizar Articulo</h1>
+                <form method='post'enctype='multipart/form-data'>
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <a class="btn btn-dark" href={% url 'articulo' articulo_slug=articulo.slug art=articulo.id %}> Cancelar</a>
+                    <input class="btn btn-dark" type="submit" value="Actualizar Articulo">
+                </form>
+            </div>
+            <!-- Blog Grid End -->
+            
+            <!-- Sidebar Start -->
+            {% include 'blog/sidebarder.html' %}
+            <!-- Sidebar End -->
+
+        </div>
+    </div>
+    <!-- Blog End -->
+{% endblock contenedor %}

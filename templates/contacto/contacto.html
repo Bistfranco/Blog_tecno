@@ -1,0 +1,46 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block navegador %}
+<!-- 
+<a href={% url 'inicio' %} class="nav-item nav-link ">Inicio</a>
+-->
+<a href={% url 'inicio' %} class="nav-item nav-link">Blog</a>
+<a href={% url 'about' %} class="nav-item nav-link">Nosotros</a>
+<a href={% url 'contacto' %} class="nav-item nav-link active">Contacto</a>
+{%if request.user.is_authenticated %}
+<a href={% url 'info' %} class="nav-item nav-link">Info</a>
+{% endif %}
+{% endblock navegador %}
+
+{% block contenedor %}
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-5 pb-4 pb-lg-0">
+                <img class="img-fluid w-100" src={% static 'blog_plantilla/img/about.jpg' %} alt="">
+                <div class="bg-primary text-dark text-center p-4">
+                    <h3 class="m-0">CONTACTANOS</h3>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <h1>FORMULARIO CONTACTO</h1>
+                <form method="POST" >
+                    <br>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class='message {{ message.tags }}'>{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    <table>
+                        {% csrf_token %}
+                        {{ form }}
+                    </table>
+                    <input class="btn btn-dark  forms-group__button" type="submit" value='Enviar'>
+                </form>
+                <!-- -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenedor %}
